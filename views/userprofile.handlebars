@@ -1,0 +1,265 @@
+
+
+    <link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: rgb(2, 12, 20);
+        }
+        
+        .text {
+            color: #f4511e
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        /* Button used to open the contact form - fixed at the bottom of the page */
+        
+        .open-button {
+            position: relative;
+            bottom: -20px;
+            left: 20px;
+            background-color: rgb(59, 15, 85);
+            color: white;
+            border: none;
+            /* White text */
+            padding: 12px 24px;
+            /* Some padding */
+            font-size: 16px;
+            /* Set a font-size */
+        }
+        /* Add a right margin to each icon */
+        
+        .fa {
+            margin-left: -12px;
+            margin-right: 8px;
+        }
+        /* The popup form - hidden by default */
+        
+        .form-popup {
+            display: none;
+            position: middle;
+            bottom: 0;
+            right: 15px;
+            z-index: 9;
+        }
+        /* Add styles to the form container */
+        
+        .form-container {
+            position: relative;
+            padding: 10px;
+            background-color: #ffffff;
+            bottom: -40px;
+        }
+        /* Full-width input fields */
+        
+        .form-container input[type=text],
+        .form-container input[type=number],
+        .form-container input[type=email] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            color: rgb(245, 12, 12)
+        }
+        /* Text area style */
+        
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            color: rgb(245, 11, 11)
+        }
+        
+        .form-container textarea:focus {
+            background-color: rgb(7, 7, 7);
+            outline: none;
+        }
+        /* When the inputs get focus, do something */
+        
+        .form-container input[type=text]:focus,
+        .form-container input[type=number]:focus,
+        .form-container input[type=email]:focus {
+            background-color: rgb(7, 7, 7);
+            outline: none;
+        }
+        /* Placeholder Style */
+        
+        .form-container ::placeholder {
+            color: rgb(153, 0, 255);
+            font-size: 1.5em;
+        }
+        /* Set a style for the submit/login button */
+        
+        .form-container .button {
+            border-radius: 4px;
+            background-color: #080808;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 28px;
+            padding: 20px;
+            width: 200px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+        
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+        
+        .button:hover span {
+            padding-right: 25px;
+        }
+        
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+        
+        .btn {
+            background-color: #9e1ef4;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            font-size: 16px;
+            margin: 4px 2px;
+            opacity: 1;
+            transition: 0.3s;
+        }
+        
+        .btn:hover {
+            opacity: 0.6
+        }
+        
+        .wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<h1 class="text">Welcome {{ user.name }}</h1>
+
+<body>
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#"></a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/users/displayproduct">
+                        <h5 style='color: rgb(255, 255, 255)'>View All Product</h5>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/displaymyproduct">
+                        <h5 style='color: #FFFFFF'>My Product</h5>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/logout">
+                        <h5 style='color: #FFFFFF'>Logout</h5>
+                    </a>
+            </ul>
+            <!-- Links -->
+
+            <form class="form-inline">
+                <div class="md-form my-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                </div>
+            </form>
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+
+
+
+    <button class="open-button" onclick="openForm()">
+        <i class="fa fa-refresh fa-spin"></i>Click To Upload Your Product
+    </button>
+
+
+    <div class="form-popup" id="myForm">
+
+        <form method="POST" class="form-container" action="/users/myproduct">
+            <h1 class="text-info">Upload Your Product To Get Free Gift</h1>
+
+            
+
+            <input type="text" placeholder="Enter Your Product name" name="pname" required>
+
+
+            <textarea name="description" placeholder="Write few words about your product if you ever sold it " style="width:200px; height:200px;" required></textarea>
+
+
+
+            <input type="number" placeholder="Enter Price" name="price" required>
+            <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="2no Gate" checked="">
+          Send Your Gift At 2no Gate SA PARIVAHON
+        </label>
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Kazir Dewri" checked="">
+         Send Your Gift At Kazir Dewri SA PARIVAHON
+        </label>
+      
+            {{!-- <input type="checkbox" name="vehicle" value="2no Gate">Send Your Gift At 2no Gate SA PARIVAHON<br>
+  <input type="checkbox" name="vehicle" value="Kazir Dewri" checked>Send Your Gift At Kazir Dewri SA PARIVAHON<br> --}}
+
+
+
+            <button type="submit" class="button" name="upload"><span>Submit</span></button>
+
+            <button type="button" class="btn" onclick="closeForm()">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: rgb(2, 12, 20);
+        }
+        
+        .text {
+            color: #f4511e
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        </style>
+</head>
+<body>
+
+    <a href="/userprofile" class="btn btn-outline-warning">Go Back To Your Profile</a>
+   
+     {{#each prods}}
+     
+    <div class="row">
+    <div class="jumbotron">
+        <div class="thumbnail">
+            {{!-- <img src="https://upload.wikimedia.org/wikipedia/en/5/5e/Gothiccover.png" alt="..." class="img-responsive"> --}}
+            <div class="caption">
+                <p class="text-danger"> {{pname}}</p>
+                <p class="text-info">{{description}}</p>
+                <div class="clearfix">
+                    <div class="text-warning">{{price}}$</div>
+                     <td>
+                            
+                 
+                        <a href='delete/{{_id}}'>Delete</a>
+                     </td>
+                    
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    {{else}}
+            <h2 class="text-danger">You have No Product</h2>
+             {{/each}}
+
+      
